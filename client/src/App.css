@@ -40,3 +40,30 @@
 .read-the-docs {
   color: #888;
 }
+
+.fade-image {
+  opacity: 0;
+  animation: fadeIn 6s infinite;
+  animation-fill-mode: forwards;
+}
+
+.fade-image-1 {
+  animation-delay: 0s;
+}
+
+.fade-image-2 {
+  animation-delay: 2s;
+}
+
+.fade-image-3 {
+  animation-delay: 4s;
+}
+
+@keyframes fadeIn {
+  0%, 100% {
+    opacity: 0;
+  }
+  33% {
+    opacity: 1;
+  }
+}
