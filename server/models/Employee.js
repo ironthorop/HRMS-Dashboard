@@ -33,67 +33,59 @@ const employeeSchema = new mongoose.Schema(
     },
     department: {
       type: String,
-      required: [true, "Department is required"],
+      // required: [true, "Department is required"],1
       trim: true,
     },
-    joiningDate: {
-      type: Date,
-      required: [true, "Joining date is required"],
-    },
-    salary: {
-      type: Number,
-      required: [true, "Salary is required"],
-    },
+    // joiningDate: {
+    //   type: Date,
+    //   required: [true, "Joining date is required"],
+    // },
+    // salary: {
+    //   type: Number,
+    //   required: [true, "Salary is required"],
+    // },
     status: {
       type: String,
       enum: ["active", "inactive", "on_leave", "terminated"],
       default: "active",
     },
-    address: {
-      street: String,
-      city: String,
-      state: String,
-      zipCode: String,
-      country: String,
-    },
-    documents: [
-      {
-        name: String,
-        path: String,
-        uploadDate: {
-          type: Date,
-          default: Date.now,
-        },
-      },
-    ],
-    emergencyContact: {
-      name: String,
-      relationship: String,
-      phone: String,
-    },
-    bankDetails: {
-      accountName: String,
-      accountNumber: String,
-      bankName: String,
-      ifscCode: String,
-    },
-    createdBy: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
-    },
-    createdAt: {
-      type: Date,
-      default: Date.now,
-    },
-    updatedAt: {
-      type: Date,
-      default: Date.now,
-    },
+    // address: {
+    //   street: String,
+    //   city: String,
+    //   state: String,
+    //   zipCode: String,
+    //   country: String,
+    // },
+    // documents: [
+    //   {
+    //     name: String,
+    //     path: String,
+    //     uploadDate: {
+    //       type: Date,
+    //       default: Date.now,
+    //     },
+    //   },
+    // ],
+    // emergencyContact: {
+    //   name: String,
+    //   relationship: String,
+    //   phone: String,
+    // },
+    // bankDetails: {
+    //   accountName: String,
+    //   accountNumber: String,
+    //   bankName: String,
+    //   ifscCode: String,
+    // },
+    // createdBy: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: "User",
+    //   required: true,
+    // }
   },
   { timestamps: true }
 );
 
 const Employee = mongoose.model("Employee", employeeSchema);
 
-export default Employee;
+module.exports = Employee;

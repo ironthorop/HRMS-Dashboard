@@ -1,7 +1,8 @@
 import { NavLink, useLocation } from 'react-router-dom';
 import { 
-  Home, Users, UserPlus, Calendar, FileText, 
-  LogOut, Menu
+   Users, UserPlus, Calendar, FileText, 
+  LogOut, Menu,
+  Search
 } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
 import { useState } from 'react';
@@ -12,7 +13,6 @@ const Sidebar = ({ setTitle }) => {
   const [isOpen, setIsOpen] = useState(true); // State to toggle sidebar
 
   const links = [
-    { to: '/dashboard', label: 'Dashboard', icon: Home },
     { to: '/candidates', label: 'Candidates', icon: UserPlus },
     { to: '/employees', label: 'Employees', icon: Users },
     { to: '/attendance', label: 'Attendance', icon: Calendar },
@@ -39,6 +39,20 @@ const Sidebar = ({ setTitle }) => {
           <div className="flex items-end justify-center mb-6">
             <div className="w-8 h-8 border-4 border-[#4B0082] mr-2"></div>
             <span className="text-[#4B0082] text-2xl font-bold">LOGO</span>
+          </div>
+        </div>
+
+        {/* Search Bar */}
+        <div className="px-4 mb-4">
+          <div className="relative">
+            <span className="absolute inset-y-0 left-3 flex items-center text-gray-500">
+              <Search size={20} />
+            </span>
+            <input
+              type="text"
+              placeholder="Search..."
+              className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-[#4B0082]"
+            />
           </div>
         </div>
 

@@ -87,83 +87,72 @@ const getEmployeeById = async (req, res) => {
   }
 };
 
-// @desc    Create a new employee
-// @route   POST /api/employees
-// @access  Private
-const createEmployee = async (req, res) => {
-  try {
-    const {
-      name,
-      email,
-      employeeId,
-      phone,
-      position,
-      department,
-      joiningDate,
-      salary,
-      status,
-      address,
-      emergencyContact,
-      bankDetails,
-    } = req.body;
+// // @desc    Create a new employee
+// // @route   POST /api/employees
+// // @access  Private
+// const createEmployee = async (req, res) => {
+//   try {
+//     const {
+//       name,
+//       email,
+//       employeeId,
+//       phone,
+//       position,
+//       department,
+//       joiningDate,
+//       salary,
+//       status,
+//       address,
+//       emergencyContact,
+//       bankDetails,
+//     } = req.body;
 
-    // Check if employee already exists with the same email or employeeId
-    const existingEmployee = await Employee.findOne({
-      $or: [{ email }, { employeeId }],
-    });
+//     // Check if employee already exists with the same email or employeeId
+//     const existingEmployee = await Employee.findOne({
+//       $or: [{ email }, { employeeId }],
+//     });
 
-    if (existingEmployee) {
-      return res.status(400).json({
-        message: "Employee already exists with this email or employee ID",
-      });
-    }
+//     if (existingEmployee) {
+//       return res.status(400).json({
+//         message: "Employee already exists with this email or employee ID",
+//       });
+//     }
 
-    // Create new employee
-    const employee = new Employee({
-      name,
-      email,
-      employeeId,
-      phone,
-      position,
-      department,
-      joiningDate,
-      salary,
-      status: status || "active",
-      address,
-      emergencyContact,
-      bankDetails,
-      createdBy: req.user.id,
-    });
+//     // Create new employee
+//     const employee = new Employee({
+//       name,
+//       email,
+//       employeeId,
+//       phone,
+//       position,
+//       department,
+//       joiningDate,
+//       salary,
+//       status: status || "active",
+//       address,
+//       emergencyContact,
+//       bankDetails,
+//       createdBy: req.user.id,
+//     });
 
-    await employee.save();
+//     await employee.save();
 
-    res.status(201).json({
-      message: "Employee created successfully",
-      employee,
-    });
-  } catch (error) {
-    res.status(500).json({ message: "Server error", error: error.message });
-  }
-};
+//     res.status(201).json({
+//       message: "Employee created successfully",
+//       employee,
+//     });
+//   } catch (error) {
+//     res.status(500).json({ message: "Server error", error: error.message });
+//   }
+// };
 
 // @desc    Update employee
 // @route   PUT /api/employees/:id
 // @access  Private
 const updateEmployee = async (req, res) => {
   try {
-    const {
-      name,
-      email,
-      phone,
-      position,
-      department,
-      joiningDate,
-      salary,
-      status,
-      address,
-      emergencyContact,
-      bankDetails,
-    } = req.body;
+    const { name, email, phone, position, department, joiningDate, status } =
+      req.body;
 
     // Find employee
     const employee = await Employee.findById(req.params.id);
@@ -189,30 +178,7 @@ const updateEmployee = async (req, res) => {
     employee.position = position || employee.position;
     employee.department = department || employee.department;
     employee.joiningDate = joiningDate || employee.joiningDate;
-    employee.salary = salary || employee.salary;
     employee.status = status || employee.status;
-
-    // Update nested objects if provided
-    if (address) {
-      employee.address = {
-        ...employee.address,
-        ...address,
-      };
-    }
-
-    if (emergencyContact) {
-      employee.emergencyContact = {
-        ...employee.emergencyContact,
-        ...emergencyContact,
-      };
-    }
-
-    if (bankDetails) {
-      employee.bankDetails = {
-        ...employee.bankDetails,
-        ...bankDetails,
-      };
-    }
 
     await employee.save();
 
@@ -299,11 +265,9 @@ const convertCandidateToEmployee = async (req, res) => {
     }
 
     if (candidate.status !== "selected") {
-      return res
-        .status(400)
-        .json({
-          message: "Only selected candidates can be converted to employees",
-        });
+      return res.status(400).json({
+        message: "Only selected candidates can be converted to employees",
+      });
     }
 
     // Generate employee ID
@@ -318,17 +282,7 @@ const convertCandidateToEmployee = async (req, res) => {
       phone: candidate.phone,
       position: candidate.position,
       department: candidate.department,
-      joiningDate: new Date(),
-      salary: 0, // Default value, to be updated later
       status: "active",
-      documents: [
-        {
-          name: "Resume",
-          path: candidate.resume,
-          uploadDate: new Date(),
-        },
-      ],
-      createdBy: req.user.id,
     });
 
     await employee.save();
@@ -349,7 +303,7 @@ const convertCandidateToEmployee = async (req, res) => {
 module.exports = {
   getEmployees,
   getEmployeeById,
-  createEmployee,
+  // createEmployee,
   updateEmployee,
   deleteEmployee,
   updateEmployeeStatus,

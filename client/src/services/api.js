@@ -54,3 +54,124 @@ export const verifyToken = async (token) => {
 
   return await response.json();
 };
+
+// API call to add a new candidate
+export const addCandidate = async (formData) => {
+  const response = await fetch(`${BASE_API_URL}/api/candidates`, {
+    method: "POST",
+    body: formData,
+  });
+
+  if (!response.ok) {
+    const { message } = await response.json();
+    throw new Error(message || "Failed to add candidate");
+  }
+
+  return await response.json();
+};
+
+// API call to update a candidate
+export const updateCandidate = async (id, candidateData) => {
+  const response = await fetch(`${BASE_API_URL}/api/candidates/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(candidateData),
+  });
+
+  if (!response.ok) {
+    const { message } = await response.json();
+    throw new Error(message || "Failed to update candidate");
+  }
+
+  return await response.json();
+};
+
+// API call to delete a candidate
+export const deleteCandidate = async (id) => {
+  const response = await fetch(`${BASE_API_URL}/api/candidates/${id}`, {
+    method: "DELETE",
+  });
+
+  if (!response.ok) {
+    const { message } = await response.json();
+    throw new Error(message || "Failed to delete candidate");
+  }
+
+  return await response.json();
+};
+
+// API call to fetch employees
+export const fetchEmployees = async () => {
+  const response = await fetch(`${BASE_API_URL}/api/employees`, {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  });
+
+  if (!response.ok) {
+    const { message } = await response.json();
+    throw new Error(message || "Failed to fetch employees");
+  }
+
+  return await response.json();
+};
+
+// Fetch all leaves
+export const fetchLeaves = async () => {
+  const response = await fetch(`${BASE_API_URL}/api/leaves`, {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  });
+
+  if (!response.ok) {
+    const { message } = await response.json();
+    throw new Error(message || "Failed to fetch leaves");
+  }
+
+  return await response.json();
+};
+
+// Create a new leave
+export const createLeave = async (leaveData) => {
+  const response = await fetch(`${BASE_API_URL}/api/leaves`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(leaveData),
+  });
+
+  if (!response.ok) {
+    const { message } = await response.json();
+    throw new Error(message || "Failed to create leave");
+  }
+
+  return await response.json();
+};
+
+// Update leave status
+export const updateLeave = async (id, updatedData) => {
+  const response = await fetch(`${BASE_API_URL}/api/leaves/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(updatedData),
+  });
+
+  if (!response.ok) {
+    const { message } = await response.json();
+    throw new Error(message || "Failed to update leave");
+  }
+
+  return await response.json();
+};
+
+// Delete a leave
+export const deleteLeave = async (id) => {
+  const response = await fetch(`${BASE_API_URL}/api/leaves/${id}`, {
+    method: "DELETE",
+  });
+
+  if (!response.ok) {
+    const { message } = await response.json();
+    throw new Error(message || "Failed to delete leave");
+  }
+
+  return await response.json();
+};

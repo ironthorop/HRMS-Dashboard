@@ -1,6 +1,7 @@
 require("dotenv").config(); // Ensure this is at the top of the file
 const express = require("express");
 const apiRoutes = require("./routes/api.route.js");
+const leaveRoutes = require("./routes/leaveRoutes");
 const connectDB = require("./config/db.js");
 
 const app = express();
@@ -38,6 +39,7 @@ app.use((err, req, res, next) => {
 
 // Routes
 app.use("/api", apiRoutes);
+app.use("/api/leaves", leaveRoutes);
 
 // Start server
 const PORT = process.env.PORT || 3001;

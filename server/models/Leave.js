@@ -52,6 +52,16 @@ const leaveSchema = new mongoose.Schema(
         },
       },
     ],
+    docs: [
+      {
+        name: String,
+        url: String,
+        uploadedAt: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
     approvedBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
@@ -76,14 +86,6 @@ const leaveSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
-    },
-    createdAt: {
-      type: Date,
-      default: Date.now,
-    },
-    updatedAt: {
-      type: Date,
-      default: Date.now,
     },
   },
   { timestamps: true }
